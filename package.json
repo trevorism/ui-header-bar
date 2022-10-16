@@ -1,6 +1,9 @@
 {
-  "name": "ui-header-bar",
-  "version": "0.7.0",
+  "name": "@trevorism/ui-header-bar",
+  "version": "0.1.0",
+  "description": "The header bar component for Trevorism.com",
+  "license": "MIT",
+  "repository": "trevorism/ui-header-bar",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
