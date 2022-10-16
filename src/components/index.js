@@ -1,1 +1,3 @@
-export { default as HeaderBar } from "./HeaderBar.vue";
+import HeaderBar from './HeaderBar.vue'
+
+export {HeaderBar}
