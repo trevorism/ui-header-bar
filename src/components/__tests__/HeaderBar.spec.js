@@ -6,6 +6,6 @@ import HeaderBar from "../HeaderBar.vue";
 describe("HeaderBar", () => {
   it("renders properly", () => {
     const wrapper = mount(HeaderBar);
-    expect(wrapper.text()).toContain("hi hello hi");
+    expect(wrapper.text()).toContain("Articles");
   });
 });

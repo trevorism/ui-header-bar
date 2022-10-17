@@ -1,18 +1,14 @@
 {
   "name": "@trevorism/ui-header-bar",
-  "version": "0.1.1",
+  "version": "0.1.7",
   "description": "The header bar component for Trevorism.com",
   "license": "MIT",
   "repository": "trevorism/ui-header-bar",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/ui-header-bar.umd.js",
   "module": "./dist/ui-header-bar.es.js",
-  "exports": {
-    ".": {
-      "import": "./dist/ui-header-bar.es.js",
-      "require": "./dist/ui-header-bar.umd.js"
-    }
-  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -35,6 +31,7 @@
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "jsdom": "^20.0.0",
+    "naive-ui": "^2.33.5",
     "prettier": "^2.7.1",
     "require": "^0.4.4",
     "vite": "^3.0.9",
