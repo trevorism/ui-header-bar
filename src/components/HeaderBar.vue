@@ -1,15 +1,19 @@
 <script setup>
 import { NConfigProvider, NMenu, NButton, NSpace } from "naive-ui";
-import { h } from "vue";
+import { h, ref } from "vue";
+
+const authenticated = ref(false)
+const username = ref('')
+const admin = ref(false)
 
 const themeOverrides = {
   Menu: {
     peers: {
       Dropdown: {
-        colorInverted: "black",
-      },
-    },
-  },
+        colorInverted: "black"
+      }
+    }
+  }
 };
 
 const menuOptions = [
@@ -19,11 +23,11 @@ const menuOptions = [
     children: [
       {
         label: () => h("a", { href: "https://www.trevorism.com" }, "Home"),
-        key: "home",
+        key: "home"
       },
       {
         label: () => h("a", { href: "https://click.trevorism.com" }, "Click"),
-        key: "click",
+        key: "click"
       },
       {
         label: () =>
@@ -32,9 +36,9 @@ const menuOptions = [
             { href: "https://active.project.trevorism.com" },
             "Service Registry"
           ),
-        key: "service_registry",
-      },
-    ],
+        key: "service_registry"
+      }
+    ]
   },
   {
     label: "Articles",
@@ -47,7 +51,7 @@ const menuOptions = [
             { href: "https://www.trevorism.com/docs" },
             "Trevorism Documentation"
           ),
-        key: "trevorism_documentation",
+        key: "trevorism_documentation"
       },
       {
         label: () =>
@@ -56,7 +60,7 @@ const menuOptions = [
             { href: "https://www.trevorism.com/articles/prototype" },
             "Prototype Driven Development 05/2013"
           ),
-        key: "prototype_driven_development",
+        key: "prototype_driven_development"
       },
       {
         label: () =>
@@ -65,7 +69,7 @@ const menuOptions = [
             { href: "https://www.trevorism.com/articles/trends" },
             "Technology Trends 02/2018"
           ),
-        key: "technology_trends",
+        key: "technology_trends"
       },
       {
         label: () =>
@@ -74,7 +78,7 @@ const menuOptions = [
             { href: "https://www.trevorism.com/articles/production" },
             "Technology Trends 02/2018"
           ),
-        key: "productionalized_service",
+        key: "productionalized_service"
       },
       {
         label: () =>
@@ -83,36 +87,28 @@ const menuOptions = [
             { href: "https://www.trevorism.com/articles/improvement" },
             "Scientific Improvement 12/2020"
           ),
-        key: "scientific_improvement",
-      },
-    ],
+        key: "scientific_improvement"
+      }
+    ]
   },
   {
     label: () =>
       h("a", { href: "https://www.trevorism.com/contact" }, "Contact"),
-    key: "contact",
+    key: "contact"
   },
   {
     label: "Tools",
     key: "tools",
+    show: authenticated,
     children: [
       {
-        label: () =>
-          h(
-            "a",
-            { href: "https://github.com/trevorism" },
-            "Github"
-          ),
-        key: "github",
+        label: () => h("a", { href: "https://github.com/trevorism" }, "Github"),
+        key: "github"
       },
       {
         label: () =>
-          h(
-            "a",
-            { href: "https://console.cloud.google.com" },
-            "Google Cloud"
-          ),
-        key: "google_cloud",
+          h("a", { href: "https://console.cloud.google.com" }, "Google Cloud"),
+        key: "google_cloud"
       },
       {
         label: () =>
@@ -121,16 +117,18 @@ const menuOptions = [
             { href: "https://admin.google.com/u/1/?pli=1" },
             "Google Apps"
           ),
-        key: "google_apps",
+        key: "google_apps"
       },
       {
         label: () =>
           h(
             "a",
-            { href: "https://kanbanflow.com/board/a6a2c3aa67d9492ac64007975f9f322a" },
+            {
+              href: "https://kanbanflow.com/board/a6a2c3aa67d9492ac64007975f9f322a"
+            },
             "Kanban Flow"
           ),
-        key: "kanban_flow",
+        key: "kanban_flow"
       },
       {
         label: () =>
@@ -139,16 +137,15 @@ const menuOptions = [
             { href: "https://www.npmjs.com/search?q=%40trevorism" },
             "NPM"
           ),
-        key: "npm",
-      },
-    ],
+        key: "npm"
+      }
+    ]
   },
   {
-    label: () =>
-      h("a", { href: "https://www.trevorism.com/admin" }, "Admin"),
+    label: () => h("a", { href: "https://www.trevorism.com/admin" }, "Admin"),
     show: true,
-    key: "admin",
-  },
+    key: "admin"
+  }
 ];
 </script>
 
@@ -185,7 +182,7 @@ const menuOptions = [
   background: black;
 }
 
-.valign{
+.valign {
   vertical-align: middle;
 }
 
