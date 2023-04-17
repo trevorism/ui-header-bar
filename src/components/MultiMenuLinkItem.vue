@@ -19,7 +19,6 @@ defineProps({
 <style scoped>
 .tism-menuLinkItem{
   display:block;
-  position: relative;
   padding: 10px;
   width:100%;
 }

@@ -1,7 +1,9 @@
 <script setup>
-import HeaderBar from "./components/HeaderBar.vue";
+import MenuBar from "./components/MenuBar.vue";
 </script>
 
 <template>
-  <HeaderBar></HeaderBar>
+  <div>
+    <MenuBar></MenuBar>
+  </div>
 </template>
