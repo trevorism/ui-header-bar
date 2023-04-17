@@ -8,7 +8,6 @@ defineProps({
 </script>
 
 <template>
-
   <div class="tism-menuButton">
     <a :href="href"><slot></slot></a>
   </div>
@@ -18,7 +17,6 @@ defineProps({
 .tism-menuButton {
   display: inline-block;
   margin-right: 30px;
-
   width: 100%;
 }
 
@@ -42,6 +40,17 @@ defineProps({
 .tism-menuButton a:hover {
   color: white;
   background-color: #0198d9;
+  cursor: pointer;
+}
+
+.tism-menuButton a:focus {
+  color: white;
+  background-color: #008dc9;
+  cursor: pointer;
+}
+
+.tism-menuButton a:visited {
+  color: white;
   cursor: pointer;
 }
 </style>
