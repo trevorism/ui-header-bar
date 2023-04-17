@@ -1,192 +1,103 @@
 <script setup>
-import { NConfigProvider, NMenu, NButton, NSpace } from "naive-ui";
-import { h, ref } from "vue";
+import MenuButton from "./MenuButton.vue";
+import MenuLink from "./MenuLink.vue";
+import MultiMenuLink from "./MultiMenuLink.vue";
+import MultiMenuLinkItem from "./MultiMenuLinkItem.vue";
+</script>
 
-const authenticated = ref(false)
-const username = ref('')
-const admin = ref(false)
-
-const themeOverrides = {
-  Menu: {
-    peers: {
-      Dropdown: {
-        colorInverted: "black"
-      }
-    }
+<script>
+export default {
+  name: "HeaderBar",
+  data() {
+    return {
+      authenticated: false,
+      admin: true,
+    };
   }
 };
-
-const menuOptions = [
-  {
-    label: "Apps",
-    key: "apps",
-    children: [
-      {
-        label: () => h("a", { href: "https://www.trevorism.com" }, "Home"),
-        key: "home"
-      },
-      {
-        label: () => h("a", { href: "https://click.trevorism.com" }, "Click"),
-        key: "click"
-      },
-      {
-        label: () =>
-          h(
-            "a",
-            { href: "https://active.project.trevorism.com" },
-            "Service Registry"
-          ),
-        key: "service_registry"
-      }
-    ]
-  },
-  {
-    label: "Articles",
-    key: "articles",
-    children: [
-      {
-        label: () =>
-          h(
-            "a",
-            { href: "https://www.trevorism.com/docs" },
-            "Trevorism Documentation"
-          ),
-        key: "trevorism_documentation"
-      },
-      {
-        label: () =>
-          h(
-            "a",
-            { href: "https://www.trevorism.com/articles/prototype" },
-            "Prototype Driven Development 05/2013"
-          ),
-        key: "prototype_driven_development"
-      },
-      {
-        label: () =>
-          h(
-            "a",
-            { href: "https://www.trevorism.com/articles/trends" },
-            "Technology Trends 02/2018"
-          ),
-        key: "technology_trends"
-      },
-      {
-        label: () =>
-          h(
-            "a",
-            { href: "https://www.trevorism.com/articles/production" },
-            "Technology Trends 02/2018"
-          ),
-        key: "productionalized_service"
-      },
-      {
-        label: () =>
-          h(
-            "a",
-            { href: "https://www.trevorism.com/articles/improvement" },
-            "Scientific Improvement 12/2020"
-          ),
-        key: "scientific_improvement"
-      }
-    ]
-  },
-  {
-    label: () =>
-      h("a", { href: "https://www.trevorism.com/contact" }, "Contact"),
-    key: "contact"
-  },
-  {
-    label: "Tools",
-    key: "tools",
-    show: authenticated,
-    children: [
-      {
-        label: () => h("a", { href: "https://github.com/trevorism" }, "Github"),
-        key: "github"
-      },
-      {
-        label: () =>
-          h("a", { href: "https://console.cloud.google.com" }, "Google Cloud"),
-        key: "google_cloud"
-      },
-      {
-        label: () =>
-          h(
-            "a",
-            { href: "https://admin.google.com/u/1/?pli=1" },
-            "Google Apps"
-          ),
-        key: "google_apps"
-      },
-      {
-        label: () =>
-          h(
-            "a",
-            {
-              href: "https://kanbanflow.com/board/a6a2c3aa67d9492ac64007975f9f322a"
-            },
-            "Kanban Flow"
-          ),
-        key: "kanban_flow"
-      },
-      {
-        label: () =>
-          h(
-            "a",
-            { href: "https://www.npmjs.com/search?q=%40trevorism" },
-            "NPM"
-          ),
-        key: "npm"
-      }
-    ]
-  },
-  {
-    label: () => h("a", { href: "https://www.trevorism.com/admin" }, "Admin"),
-    show: true,
-    key: "admin"
-  }
-];
 </script>
 
 <template>
-  <n-config-provider :theme-overrides="themeOverrides">
-    <n-space justify="space-between" class="header">
-      <div>
-        <a href="https://trevorism.com">
-          <img src="../assets/TrevorismLogo.png" class="logo-image valign" />
-        </a>
-        <n-menu
-          mode="horizontal"
-          :options="menuOptions"
-          :inverted="true"
-          :theme-overrides="menuThemeOverrides"
-        />
+  <div class="header navBar">
+    <div class="tism-menuItem header-icon">
+      <a href="https://trevorism.com">
+        <img src="../assets/TrevorismLogo.png" alt="Trevorism" class="logo-image" />
+      </a>
+    </div>
+    <div class="tism-menuItem">
+      <multi-menu-link label="Apps">
+        <multi-menu-link-item href="https://www.trevorism.com">Home</multi-menu-link-item>
+        <multi-menu-link-item href="https://timeline.draw.trevorism.com">Timeline Generator</multi-menu-link-item>
+        <multi-menu-link-item href="https://active.project.trevorism.com">Service Registry</multi-menu-link-item>
+      </multi-menu-link>
+    </div>
+    <div class="tism-menuItem">
+      <multi-menu-link label="Articles">
+        <multi-menu-link-item href="/docs">Trevorism Documentation</multi-menu-link-item>
+        <multi-menu-link-item href="/articles/prototype">Prototype Driven Development 05/2013</multi-menu-link-item>
+        <multi-menu-link-item href="/articles/trends">Technology Trends 02/2018</multi-menu-link-item>
+        <multi-menu-link-item href="/articles/production">Productionalized Service 02/2018</multi-menu-link-item>
+        <multi-menu-link-item href="/articles/improvement">Scientific Improvement 12/2020</multi-menu-link-item>
+      </multi-menu-link>
+    </div>
+    <div class="tism-menuItem">
+      <menu-link href="/contact">Contact</menu-link>
+    </div>
+    <div class="tism-menuItem">
+      <multi-menu-link label="Tools" v-if="authenticated">
+        <multi-menu-link-item href="https://github.com/trevorism">Github</multi-menu-link-item>
+        <multi-menu-link-item href="https://kanbanflow.com/board/a6a2c3aa67d9492ac64007975f9f322a">Kanban Flow</multi-menu-link-item>
+        <multi-menu-link-item href="https://www.npmjs.com/search?q=%40trevorism">NPM</multi-menu-link-item>
+        <multi-menu-link-item href="https://console.cloud.google.com">Google Cloud</multi-menu-link-item>
+        <multi-menu-link-item href="https://admin.google.com/u/1/?pli=1">Google Apps</multi-menu-link-item>
+      </multi-menu-link>
+    </div>
+    <div class="tism-menuItem">
+      <menu-link href="/admin" v-if="admin">Admin</menu-link>
+    </div>
+    <span v-if="!authenticated">
+      <div class="tism-menuItem rightJustify">
+        <menu-button href="/login" color="white">Login</menu-button>
       </div>
-      <div>
-        <span class="changeMeToIsAuthenticated valign" >
-          <n-button type="primary">one</n-button>
-          <n-button type="default">two</n-button>
-        </span>
-        <span class="changeMeToIfElse valign" style="display: none">
-          <n-button type="primary">one</n-button>
-          <n-button type="default">two</n-button>
-        </span>
+      <div class="tism-menuItem rightJustify">
+        <menu-button href="/register">Register</menu-button>
       </div>
-    </n-space>
-  </n-config-provider>
+    </span>
+    <span v-else>
+      <div class="tism-menuItem rightJustify">
+        <menu-button href="/logout">Logout</menu-button>
+      </div>
+      <div class="tism-menuItem rightJustify">
+        <menu-button href="/account">Account</menu-button>
+      </div>
+    </span>
+  </div>
 </template>
 
 <style scoped>
-.header {
-  background: black;
+
+.tism-menuItem {
+  display: inline-block;
+  height: 46px;
+  vertical-align: middle;
 }
 
-.valign {
-  vertical-align: middle;
+.rightJustify {
+  float: right;
+}
+
+.navBar {
+  height: 46px;
+  width: 100%;
+  background-color: #f0f0f0;
 }
 
 .logo-image {
   padding-right: 20px;
+  margin-top: 10px;
+}
+
+.header-icon {
+  background-color: black;
 }
 </style>
