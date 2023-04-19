@@ -6,46 +6,20 @@
           <img src="../assets/TrevorismLogo.png" alt="Trevorism" class="logo-image" />
         </a>
       </va-navbar-item>
-      <va-navbar-item>
-        <va-button-dropdown label="Apps" size="medium" class="mr-2 mb-2">
-          <multi-menu-link-item href="https://www.trevorism.com">Home</multi-menu-link-item>
-          <multi-menu-link-item href="https://timeline.draw.trevorism.com">Timeline Generator</multi-menu-link-item>
-          <multi-menu-link-item href="https://active.project.trevorism.com">Service Registry</multi-menu-link-item>
-        </va-button-dropdown>
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-button-dropdown label="Articles" size="medium" class="mr-2 mb-2">
-          <multi-menu-link-item href="/docs">Trevorism Documentation</multi-menu-link-item>
-          <multi-menu-link-item href="/articles/prototype">Prototype Driven Development 05/2013</multi-menu-link-item>
-          <multi-menu-link-item href="/articles/trends">Technology Trends 02/2018</multi-menu-link-item>
-          <multi-menu-link-item href="/articles/production">Productionalized Service 02/2018</multi-menu-link-item>
-          <multi-menu-link-item href="/articles/improvement">Scientific Improvement 12/2020</multi-menu-link-item>
-        </va-button-dropdown>
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-button size="medium" class="mr-2 mb-2">Contact</va-button>
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-button-dropdown size="medium" class="mr-2 mb-2" label="Tools">
-          <multi-menu-link-item href="https://github.com/trevorism">Github</multi-menu-link-item>
-          <multi-menu-link-item href="https://kanbanflow.com/board/a6a2c3aa67d9492ac64007975f9f322a">Kanban Flow
-          </multi-menu-link-item>
-          <multi-menu-link-item href="https://www.npmjs.com/search?q=%40trevorism">NPM</multi-menu-link-item>
-          <multi-menu-link-item href="https://console.cloud.google.com">Google Cloud</multi-menu-link-item>
-          <multi-menu-link-item href="https://admin.google.com/u/1/?pli=1">Google Apps</multi-menu-link-item>
-        </va-button-dropdown>
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-button size="medium" class="mr-2 mb-2">Admin</va-button>
-      </va-navbar-item>
 
+      <va-navbar-item v-bind:key="item.name" v-for="item in leftMenuBar">
+        <va-button-dropdown v-if="item.hasOwnProperty('children')" :label="item.name" size="medium" class="mr-2 mb-2">
+          <multi-menu-link-item v-bind:key="child.name" v-for="child in item.children" :href="child.href">{{child.name}}</multi-menu-link-item>
+        </va-button-dropdown>
+        <va-button v-else size="medium" class="mr-2 mb-2">{{ item.name }}</va-button>
+      </va-navbar-item>
     </template>
     <template #right>
-      <va-navbar-item>
-        <va-button size="medium" class="mr-2 mb-2">Register</va-button>
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-button size="medium" class="mr-2 mb-2">Login</va-button>
+      <va-navbar-item v-bind:key="item.name" v-for="item in rightMenuBar">
+        <va-button-dropdown v-if="item.hasOwnProperty('children')" :label="item.name" size="medium" class="mr-2 mb-2">
+          <multi-menu-link-item v-bind:key="child.name" v-for="child in item.children" :href="child.href">{{child.name}}</multi-menu-link-item>
+        </va-button-dropdown>
+        <va-button v-else size="medium" class="mr-2 mb-2">{{ item.name }}</va-button>
       </va-navbar-item>
     </template>
   </va-navbar>
@@ -58,23 +32,60 @@
     </div>
     <va-spacer></va-spacer>
     <div class="flex flex-col rightMenu">
-      <va-icon name='menu' @click="showMiniMenu" />
+      <va-icon name="menu" @click="showMiniMenu" />
     </div>
   </div>
-  <side-menu v-if="showingMiniMenu" v-click-away="hideMiniMenu"></side-menu>
+  <side-menu v-if="showingMiniMenu" v-click-away="hideMiniMenu" :data="allMenuOptions"></side-menu>
 
 </template>
 
 <script setup>
 import MultiMenuLinkItem from "./MultiMenuLinkItem.vue";
 import SideMenu from "./SideMenu.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-const blackColor = {
-  color: "#000000"
+const apps = {
+  "name": "Apps", "children": [
+    { "name": "Home", "link": "https://www.trevorism.com" },
+    { "name": "Timeline Generator", "link": "https://timeline.draw.trevorism.com" },
+    { "name": "Service Registry", "link": "https://active.project.trevorism.com" }
+  ]
+};
+const articles = {
+  "name": "Articles", "children": [
+    { "name": "Trevorism Documentation", "link": "/docs" },
+    { "name": "Prototype Driven Development 05/2013", "link": "/articles/prototype" },
+    { "name": "Technology Trends 02/2018", "link": "/articles/trends" },
+    { "name": "Productionalized Service 02/2018", "link": "/articles/production" },
+    { "name": "Scientific Improvement 12/2020", "link": "/articles/improvement" }
+  ]
 };
 
+const contact = {  "name": "Contact", "link": "/contact" };
+const tools = {
+  "name": "Tools", "children": [
+    { "name":"Github", "link": "https://github.com/trevorism" },
+    { "name":"Kanban Flow", "link": "https://kanbanflow.com/board/a6a2c3aa67d9492ac64007975f9f322a" },
+    { "name":"NPM", "link": "https://www.npmjs.com/search?q=%40trevorism" },
+    { "name":"Google Cloud", "link": "https://console.cloud.google.com" },
+    { "name":"Google Apps", "link": "https://admin.google.com/u/1/?pli=1" }
+  ]
+};
+const admin = { "name": "Admin", "link": "/admin" };
+const register = {  "name": "Register", "link": "/register" };
+const login = {  "name": "Login", "link": "/login" };
+//const logout = {  "name": "Logout", "link": "/logout" };
+//const account = {  "name": "Account", "link": "/account" }
+
+const leftMenuBar = [apps, articles, contact, tools, admin];
+const rightMenuBar = [register, login]
+
+const blackColor = { color: "#000000" };
 const showingMiniMenu = ref(false);
+
+const allMenuOptions = computed(() => {
+  return [].concat(leftMenuBar, rightMenuBar);
+});
 
 function showMiniMenu() {
   showingMiniMenu.value = !showingMiniMenu.value;
@@ -119,6 +130,4 @@ function hideMiniMenu() {
     display: none;
   }
 }
-
-
 </style>

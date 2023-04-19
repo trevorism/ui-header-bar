@@ -1,58 +1,38 @@
 <script setup>
-
+defineProps({
+  data: {
+    type: Array,
+    required: true,
+  },
+});
 
 </script>
 
 <template>
   <va-sidebar width="100%" hover-color="Shadow">
-    <h2>Apps</h2>
-    <va-sidebar-item>
-      <va-sidebar-item-content>
-        Home
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-    <va-sidebar-item>
-      <va-sidebar-item-content>
-        Timeline Generator
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-    <va-sidebar-item>
-      <va-sidebar-item-content>
-        Service Registry
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-    <h2>Articles</h2>
-    <va-sidebar-item>
-      <va-sidebar-item-content>
-        Trevorism Documentation
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-    <va-sidebar-item>
-      <va-sidebar-item-content>
-        Scientific Improvement 12/2020
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-    <va-sidebar-item>
-      <va-sidebar-item-content>
-        Productionalized Service 02/2018
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-    <va-sidebar-item>
-      <va-sidebar-item-content>
-        Technology Trends 02/2018
-      </va-sidebar-item-content>
-    </va-sidebar-item>
-    <va-sidebar-item>
-      <va-sidebar-item-content>
-        Prototype Driven Development 05/2013
-      </va-sidebar-item-content>
-    </va-sidebar-item>
+    <div v-for="item in data" :key="item.id">
+      <h2>{{item.name}}</h2>
+      <div v-if="item.hasOwnProperty('children')">
+        <va-sidebar-item v-for="child in item.children" :key="child.name">
+          <va-sidebar-item-content>
+            {{ child.name }}
+          </va-sidebar-item-content>
+        </va-sidebar-item>
+      </div>
+      <va-sidebar-item v-else>
+        <va-sidebar-item-content>
+          {{item.name}}
+        </va-sidebar-item-content>
+      </va-sidebar-item>
+    </div>
   </va-sidebar>
 </template>
 
 <style scoped>
-.va-sidebar {
-  width: 100%;
+.va-sidebar__item__content {
+  --va-sidebar-item-content-padding: 1em;
+  min-height: 20px;
+  height: 20px;
 }
 
 
