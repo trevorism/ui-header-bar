@@ -4,6 +4,11 @@ defineProps({
   href: {
     type: String,
     required: true
+  },
+  local: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
 

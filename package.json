@@ -1,6 +1,6 @@
 {
   "name": "@trevorism/ui-header-bar",
-  "version": "0.7.2",
+  "version": "1.0.0",
   "description": "The header bar component for Trevorism.com",
   "scripts": {
     "build": "vite build",
@@ -8,7 +8,8 @@
     "accept": "vitest run --environment jsdom",
     "dev": "vite",
     "preview": "vite preview --port 4173",
-    "test": "vitest --environment jsdom"
+    "test": "vitest --environment jsdom",
+    "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
   },
   "main": "./dist/ui-header-bar.umd.js",
   "module": "./dist/ui-header-bar.es.js",
@@ -29,7 +30,6 @@
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "jsdom": "^20.0.0",
-    "naive-ui": "^2.33.5",
     "prettier": "^2.7.1",
     "require": "^0.4.4",
     "vite": "^3.0.9",
