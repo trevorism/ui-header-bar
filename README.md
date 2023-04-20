@@ -3,6 +3,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/trevorism/ui-header-bar)
 ![GitHub language count](https://img.shields.io/github/languages/count/trevorism/ui-header-bar)
 ![GitHub top language](https://img.shields.io/github/languages/top/trevorism/ui-header-bar)
+![npm](https://img.shields.io/npm/v/@trevorism/ui-header-bar)
 
 Vue based header bar component for Trevorism.com apps.
 
