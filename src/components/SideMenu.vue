@@ -39,12 +39,4 @@ defineProps({
   min-height: 20px;
   height: 20px;
 }
-
-.tism-menuLinkItemLink {
-  display: block;
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 </style>

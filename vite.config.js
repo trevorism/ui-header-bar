@@ -1,6 +1,7 @@
 const { defineConfig } = require("vite");
 const vue = require("@vitejs/plugin-vue");
 import { resolve } from 'path'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 export default defineConfig({
   build: {
@@ -18,7 +19,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue()],
+  plugins: [vue(), cssInjectedByJsPlugin()],
   test: {
     setupFiles: resolve("test/setup.js"),
   },
