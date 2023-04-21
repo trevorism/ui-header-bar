@@ -18,6 +18,33 @@ import { MenuBar } from "@trevorism/ui-header-bar";
 </template>
 ```
 
+Assumes Vuestic, VueClickAway, and VueRouter are installed.
+
+main.js
+```javascript
+import { createApp } from 'vue'
+
+import App from './App.vue'
+import router from './router'
+
+
+import VueClickAway from "vue3-click-away";
+import { createVuestic } from 'vuestic-ui'
+import 'vuestic-ui/css'
+
+import './assets/main.css'
+
+
+const app = createApp(App)
+app.use(router)
+app.use(VueClickAway);
+app.use(createVuestic());
+app.mount('#app')
+
+```
+
+
+
 ### Development server
 ```
 npm run dev

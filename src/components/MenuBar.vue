@@ -13,14 +13,14 @@
               v-bind:key="child.name"
               v-for="child in item.children"
               :href="child.link"
-              :local="local">
+              :useRouter="useRouter(child.link)">
               {{ child.name }}
             </multi-menu-link-item>
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="local" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }} </va-button>
-          <va-button v-if="!local" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }} </va-button>
+          <va-button v-if="useRouter(item.link)" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }} </va-button>
+          <va-button v-if="!useRouter(item.link)" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }} </va-button>
         </div>
       </va-navbar-item>
     </template>
@@ -32,14 +32,14 @@
               v-bind:key="child.name"
               v-for="child in item.children"
               :href="child.link"
-              :local="local">
+              :useRouter="useRouter(child.link)">
               {{ child.name }}
             </multi-menu-link-item>
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="local" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }} </va-button>
-          <va-button v-if="!local" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }} </va-button>
+          <va-button v-if="useRouter(item.link)" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }} </va-button>
+          <va-button v-if="!useRouter(item.link)" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }} </va-button>
         </div>
       </va-navbar-item>
     </template>
@@ -56,7 +56,7 @@
       <va-icon name="menu" @click="showMiniMenu" />
     </div>
   </div>
-  <side-menu v-if="showingMiniMenu" v-click-away="hideMiniMenu" :data="allMenuOptions" :local="local"></side-menu>
+  <side-menu v-if="showingMiniMenu" v-click-away="hideMiniMenu" :data="allMenuOptions"></side-menu>
 </template>
 
 <script setup>
@@ -90,6 +90,10 @@ const link = (link) => {
     return link;
   }
   return "https://trevorism.com" + link;
+};
+
+const useRouter = (link) => {
+  return link.startsWith("/");
 };
 
 const apps = {
@@ -178,6 +182,7 @@ function showMiniMenu() {
 function hideMiniMenu() {
   showingMiniMenu.value = false;
 }
+
 </script>
 
 <style scoped>

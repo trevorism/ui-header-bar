@@ -4,7 +4,7 @@ defineProps({
     type: String,
     required: true,
   },
-  local: {
+  useRouter: {
     type: Boolean,
     required: false,
     default: false,
@@ -14,8 +14,8 @@ defineProps({
 
 <template>
   <div class="tism-menuLinkItem">
-    <a v-if="!local" class="tism-menuLinkItemLink" :href="href"><slot></slot></a>
-    <router-link v-if="local" :to="href"><slot></slot></router-link>
+    <a v-if="!useRouter" class="tism-menuLinkItemLink" :href="href"><slot></slot></a>
+    <router-link v-if="useRouter" :to="href"><slot></slot></router-link>
   </div>
 </template>
 

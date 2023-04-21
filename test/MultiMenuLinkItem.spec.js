@@ -11,15 +11,18 @@ describe("MultiMenuLinkItem", () => {
       }
     });
     expect(wrapper.find("a").exists()).toBe(true);
-    expect(wrapper.props().local).toBe(false);
+    expect(wrapper.props().useRouter).toBe(false);
   });
 
   it("href comes from properties", () => {
     const wrapper = mount(MultiMenuLinkItem, {
       propsData: {
-        href: "https://www.google.com"
+        href: "/",
+        useRouter: true
       }
     });
-    expect(wrapper.find("a").attributes("href")).toBe("https://www.google.com");
+    expect(wrapper.find("a").attributes("href")).toBe("/");
   });
+
+
 });
