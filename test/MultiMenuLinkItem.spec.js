@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { mount } from "@vue/test-utils";
 import MultiMenuLinkItem from "../src/components/MultiMenuLinkItem.vue";
 
+
 describe("MultiMenuLinkItem", () => {
   it("renders properly", () => {
     const wrapper = mount(MultiMenuLinkItem, {

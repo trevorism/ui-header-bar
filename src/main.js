@@ -6,6 +6,5 @@ import "vuestic-ui/css";
 
 const app = createApp(App);
 app.use(VueClickAway);
-
 app.use(createVuestic());
 app.mount("#app");

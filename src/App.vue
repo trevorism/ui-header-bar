@@ -4,6 +4,6 @@ import MenuBar from "./components/MenuBar.vue";
 
 <template>
   <div>
-    <MenuBar :local="true"></MenuBar>
+    <MenuBar :local="false"></MenuBar>
   </div>
 </template>

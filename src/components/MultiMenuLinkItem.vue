@@ -14,7 +14,8 @@ defineProps({
 
 <template>
   <div class="tism-menuLinkItem">
-    <a class="tism-menuLinkItemLink" :href="href"><slot></slot></a>
+    <a v-if="!local" class="tism-menuLinkItemLink" :href="href"><slot></slot></a>
+    <router-link v-if="local" :to="href"><slot></slot></router-link>
   </div>
 </template>
 

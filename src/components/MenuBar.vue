@@ -3,81 +3,43 @@
     <template #left>
       <va-navbar-item class="logo">
         <a href="https://trevorism.com">
-          <img
-            src="../assets/TrevorismLogo.png"
-            alt="Trevorism"
-            class="logo-image"
-          />
+          <img src="../assets/TrevorismLogo.png" alt="Trevorism" class="logo-image" />
         </a>
       </va-navbar-item>
       <va-navbar-item v-bind:key="item.name" v-for="item in leftMenuBar">
         <div v-if="item.hasOwnProperty('children')">
-          <va-button-dropdown
-            :label="item.name"
-            size="medium"
-            class="mr-2 mb-2"
-          >
+          <va-button-dropdown :label="item.name" size="medium" class="mr-2 mb-2">
             <multi-menu-link-item
               v-bind:key="child.name"
               v-for="child in item.children"
               :href="child.link"
-              :local="local"
-            >
+              :local="local">
               {{ child.name }}
             </multi-menu-link-item>
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button
-            v-if="local"
-            size="medium"
-            class="mr-2 mb-2"
-            :to="item.link"
-            >{{ item.name }}
-          </va-button>
-          <va-button
-            v-if="!local"
-            size="medium"
-            class="mr-2 mb-2"
-            :href="item.link"
-            >{{ item.name }}
-          </va-button>
+          <va-button v-if="local" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }} </va-button>
+          <va-button v-if="!local" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }} </va-button>
         </div>
       </va-navbar-item>
     </template>
     <template #right>
       <va-navbar-item v-bind:key="item.name" v-for="item in rightMenuBar">
         <div v-if="item.hasOwnProperty('children')">
-          <va-button-dropdown
-            :label="item.name"
-            size="medium"
-            class="mr-2 mb-2"
-          >
+          <va-button-dropdown :label="item.name" size="medium" class="mr-2 mb-2">
             <multi-menu-link-item
               v-bind:key="child.name"
               v-for="child in item.children"
               :href="child.link"
-              :local="local"
-            >
+              :local="local">
               {{ child.name }}
             </multi-menu-link-item>
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button
-            v-if="local"
-            size="medium"
-            class="mr-2 mb-2"
-            :to="item.link"
-            >{{ item.name }}
-          </va-button>
-          <va-button
-            v-if="!local"
-            size="medium"
-            class="mr-2 mb-2"
-            :href="item.link"
-            >{{ item.name }}
-          </va-button>
+          <va-button v-if="local" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }} </va-button>
+          <va-button v-if="!local" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }} </va-button>
         </div>
       </va-navbar-item>
     </template>
@@ -86,11 +48,7 @@
   <div class="row mini-menu">
     <div class="flex flex-col">
       <a href="https://trevorism.com">
-        <img
-          src="../assets/TrevorismLogo.png"
-          alt="Trevorism"
-          class="logo-image"
-        />
+        <img src="../assets/TrevorismLogo.png" alt="Trevorism" class="logo-image" />
       </a>
     </div>
     <va-spacer></va-spacer>
@@ -98,12 +56,7 @@
       <va-icon name="menu" @click="showMiniMenu" />
     </div>
   </div>
-  <side-menu
-    v-if="showingMiniMenu"
-    v-click-away="hideMiniMenu"
-    :data="allMenuOptions"
-    :local="local"
-  ></side-menu>
+  <side-menu v-if="showingMiniMenu" v-click-away="hideMiniMenu" :data="allMenuOptions" :local="local"></side-menu>
 </template>
 
 <script setup>

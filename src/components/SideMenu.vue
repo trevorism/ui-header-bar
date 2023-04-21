@@ -14,25 +14,43 @@ defineProps({
 
 <template>
   <va-sidebar width="100%" hover-color="Shadow">
-    <div v-for="item in data" :key="item.id">
-      <h2>{{ item.name }}</h2>
-      <div v-if="item.hasOwnProperty('children')">
-        <va-sidebar-item
-          v-for="child in item.children"
-          :key="child.name"
-          :href="child.link"
-        >
+    <div v-if="!local">
+      <div v-for="item in data" :key="item.id">
+        <h2>{{ item.name }}</h2>
+
+        <div v-if="item.hasOwnProperty('children')">
+          <va-sidebar-item v-for="child in item.children" :key="child.name" :href="child.link">
+            <va-sidebar-item-content>
+              {{ child.name }}
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+        </div>
+        <va-sidebar-item v-else :href="item.link">
           <va-sidebar-item-content>
-            {{ child.name }}
+            {{ item.name }}
           </va-sidebar-item-content>
         </va-sidebar-item>
       </div>
-      <va-sidebar-item v-else :href="item.link">
-        <va-sidebar-item-content>
-          {{ item.name }}
-        </va-sidebar-item-content>
-      </va-sidebar-item>
     </div>
+    <div v-if="local">
+      <div v-for="item in data" :key="item.id">
+        <h2>{{ item.name }}</h2>
+
+        <div v-if="item.hasOwnProperty('children')">
+          <va-sidebar-item v-for="child in item.children" :key="child.name" :to="child.link">
+            <va-sidebar-item-content>
+              {{ child.name }}
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+        </div>
+        <va-sidebar-item v-else :to="item.link">
+          <va-sidebar-item-content>
+            {{ item.name }}
+          </va-sidebar-item-content>
+        </va-sidebar-item>
+      </div>
+    </div>
+
   </va-sidebar>
 </template>
 
