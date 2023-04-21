@@ -1,17 +1,15 @@
 <script setup>
-
 defineProps({
   href: {
     type: String,
-    required: true
+    required: true,
   },
   local: {
     type: Boolean,
     required: false,
-    default: false
-  }
+    default: false,
+  },
 });
-
 </script>
 
 <template>
@@ -20,24 +18,20 @@ defineProps({
   </div>
 </template>
 
-
 <style scoped>
-.tism-menuLinkItem{
-  display:block;
+.tism-menuLinkItem {
+  display: block;
   padding: 10px;
-  width:100%;
+  width: 100%;
 }
 
 .tism-menuLinkItem:hover {
   background-color: #eeeeee;
   cursor: pointer;
-
 }
 .tism-menuLinkItem a {
   display: block;
   color: black;
   text-decoration: none;
 }
-
-
 </style>
