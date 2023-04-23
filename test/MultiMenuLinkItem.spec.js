@@ -2,13 +2,12 @@ import { describe, expect, it } from "vitest";
 import { mount } from "@vue/test-utils";
 import MultiMenuLinkItem from "../src/components/MultiMenuLinkItem.vue";
 
-
 describe("MultiMenuLinkItem", () => {
   it("renders properly", () => {
     const wrapper = mount(MultiMenuLinkItem, {
       propsData: {
-        href: "https://www.google.com"
-      }
+        href: "https://www.google.com",
+      },
     });
     expect(wrapper.find("a").exists()).toBe(true);
     expect(wrapper.props().useRouter).toBe(false);
@@ -18,11 +17,9 @@ describe("MultiMenuLinkItem", () => {
     const wrapper = mount(MultiMenuLinkItem, {
       propsData: {
         href: "/",
-        useRouter: true
-      }
+        useRouter: true,
+      },
     });
     expect(wrapper.find("a").attributes("href")).toBe("/");
   });
-
-
 });

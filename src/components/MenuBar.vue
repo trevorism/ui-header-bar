@@ -1,11 +1,13 @@
 <template>
   <va-navbar v-bind="blackColor" class="header" style="height: 70px">
     <template #left>
-      <va-navbar-item class="logo">
+      <div style="width: 160px; margin-top:5px">
+      <va-navbar-item >
         <a href="https://trevorism.com">
           <img src="../assets/TrevorismLogo.png" alt="Trevorism" class="logo-image" />
         </a>
       </va-navbar-item>
+      </div>
       <va-navbar-item v-bind:key="item.name" v-for="item in leftMenuBar">
         <div v-if="item.hasOwnProperty('children')">
           <va-button-dropdown :label="item.name" size="medium" class="mr-2 mb-2">
@@ -187,7 +189,7 @@ function hideMiniMenu() {
 
 <style scoped>
 .va-dropdown__content {
-  z-index: 930;
+  z-index: 1030;
 }
 
 .rightMenu {
