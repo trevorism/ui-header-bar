@@ -184,12 +184,11 @@ function showMiniMenu() {
 function hideMiniMenu() {
   showingMiniMenu.value = false;
 }
-
 </script>
 
 <style scoped>
 .va-dropdown__content {
-  z-index: 1030;
+  z-index: 99999;
 }
 
 .rightMenu {
