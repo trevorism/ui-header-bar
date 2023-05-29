@@ -186,11 +186,13 @@ function hideMiniMenu() {
 }
 </script>
 
-<style scoped>
+<style>
 .va-dropdown__content {
   z-index: 99999;
 }
+</style>
 
+<style scoped>
 .rightMenu {
   display: flex;
   color: white;
