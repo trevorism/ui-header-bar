@@ -1,6 +1,6 @@
 {
   "name": "@trevorism/ui-header-bar",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "The header bar component for Trevorism.com",
   "scripts": {
     "build": "vite build",
