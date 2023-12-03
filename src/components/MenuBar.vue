@@ -2,11 +2,11 @@
   <va-navbar v-bind="blackColor" class="header" style="height: 70px">
     <template #left>
       <div style="width: 160px; margin-top:5px">
-      <va-navbar-item >
-        <a href="https://trevorism.com">
-          <img src="../assets/TrevorismLogo.png" alt="Trevorism" class="logo-image" />
-        </a>
-      </va-navbar-item>
+        <va-navbar-item>
+          <a href="https://trevorism.com">
+            <img src="../assets/TrevorismLogo.png" alt="Trevorism" class="logo-image" />
+          </a>
+        </va-navbar-item>
       </div>
       <va-navbar-item v-bind:key="item.name" v-for="item in leftMenuBar">
         <div v-if="item.hasOwnProperty('children')">
@@ -21,8 +21,12 @@
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="useRouter(item.link)" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }} </va-button>
-          <va-button v-if="!useRouter(item.link)" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }} </va-button>
+          <va-button v-if="useRouter(item.link)" size="medium" class="mr-2 mb-2" :to="item.link">
+            {{ item.name }}
+          </va-button>
+          <va-button v-if="!useRouter(item.link)" size="medium" class="mr-2 mb-2" :href="item.link">
+            {{ item.name }}
+          </va-button>
         </div>
       </va-navbar-item>
     </template>
@@ -40,8 +44,10 @@
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="useRouter(item.link)" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }} </va-button>
-          <va-button v-if="!useRouter(item.link)" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }} </va-button>
+          <va-button v-if="useRouter(item.link)" size="medium" class="mr-2 mb-2" :to="item.link">{{ item.name }}
+          </va-button>
+          <va-button v-if="!useRouter(item.link)" size="medium" class="mr-2 mb-2" :href="item.link">{{ item.name }}
+          </va-button>
         </div>
       </va-navbar-item>
     </template>
@@ -71,8 +77,8 @@ const props = defineProps({
   local: {
     type: Boolean,
     required: false,
-    default: false,
-  },
+    default: false
+  }
 });
 
 const { cookies } = useCookies();
@@ -104,7 +110,8 @@ const apps = {
     { name: "Home", link: link("/") },
     { name: "Timeline Generator", link: "https://timeline.draw.trevorism.com" },
     { name: "Service Registry", link: "https://active.project.trevorism.com" },
-  ],
+    { name: "Ask a question", link: "https://prompt.action.trevorism.com" },
+  ]
 };
 const articles = {
   name: "Articles",
@@ -112,18 +119,18 @@ const articles = {
     { name: "Trevorism Documentation", link: link("/docs") },
     {
       name: "Prototype Driven Development 05/2013",
-      link: link("/articles/prototype"),
+      link: link("/articles/prototype")
     },
     { name: "Technology Trends 02/2018", link: link("/articles/trends") },
     {
       name: "Productionalized Service 02/2018",
-      link: link("/articles/production"),
+      link: link("/articles/production")
     },
     {
       name: "Scientific Improvement 12/2020",
-      link: link("/articles/improvement"),
-    },
-  ],
+      link: link("/articles/improvement")
+    }
+  ]
 };
 
 const contact = { name: "Contact", link: link("/contact") };
@@ -133,12 +140,12 @@ const tools = {
     { name: "Github", link: "https://github.com/trevorism" },
     {
       name: "Kanban Flow",
-      link: "https://kanbanflow.com/board/a6a2c3aa67d9492ac64007975f9f322a",
+      link: "https://kanbanflow.com/board/a6a2c3aa67d9492ac64007975f9f322a"
     },
     { name: "NPM", link: "https://www.npmjs.com/search?q=%40trevorism" },
     { name: "Google Cloud", link: "https://console.cloud.google.com" },
-    { name: "Google Apps", link: "https://admin.google.com/u/1/?pli=1" },
-  ],
+    { name: "Google Apps", link: "https://admin.google.com/u/1/?pli=1" }
+  ]
 };
 
 const admin = { name: "Admin", link: link("/admin") };
