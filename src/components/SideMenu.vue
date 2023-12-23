@@ -3,7 +3,7 @@ defineProps({
   data: {
     type: Array,
     required: true,
-  }
+  },
 });
 
 const useRouter = (link) => {
