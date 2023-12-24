@@ -5,7 +5,7 @@ import MultiMenuLinkItem from "../src/components/MultiMenuLinkItem.vue";
 describe("MultiMenuLinkItem", () => {
   it("renders properly", () => {
     const wrapper = mount(MultiMenuLinkItem, {
-      propsData: {
+      props: {
         href: "https://www.google.com",
       },
     });
@@ -15,7 +15,7 @@ describe("MultiMenuLinkItem", () => {
 
   it("href comes from properties", () => {
     const wrapper = mount(MultiMenuLinkItem, {
-      propsData: {
+      props: {
         href: "/",
         useRouter: true,
       },
