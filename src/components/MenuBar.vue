@@ -147,6 +147,7 @@ const tools = {
     { name: "NPM", link: "https://www.npmjs.com/search?q=%40trevorism" },
     { name: "Google Cloud", link: "https://console.cloud.google.com" },
     { name: "Google Apps", link: "https://admin.google.com/u/1/?pli=1" },
+    { name: "Mixpanel", link: "https://mixpanel.com/project/3181469/view/3693037/app/boards#id=6263136" },
   ],
 };
 
