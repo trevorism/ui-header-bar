@@ -113,6 +113,7 @@ const apps = {
     { name: "Timeline Generator", link: "https://timeline.draw.trevorism.com" },
     { name: "Service Registry", link: "https://active.project.trevorism.com" },
     { name: "Ask a question", link: "https://prompt.action.trevorism.com" },
+    { name: "Candlebot", link: "https://candlebot.trade.trevorism.com" },
   ],
 };
 const articles = {
@@ -197,12 +198,6 @@ function hideMiniMenu() {
   showingMiniMenu.value = false;
 }
 </script>
-
-<style>
-.va-dropdown__content {
-  z-index: 99999;
-}
-</style>
 
 <style scoped>
 .rightMenu {

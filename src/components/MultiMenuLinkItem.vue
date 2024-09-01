@@ -24,6 +24,8 @@ defineProps({
   display: block;
   padding: 10px;
   width: 100%;
+  border-left: #eeeeee solid 1px;
+  border-right: #eeeeee solid 1px;
 }
 
 .tism-menuLinkItem:hover {
