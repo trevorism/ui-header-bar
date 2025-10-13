@@ -10,7 +10,7 @@
       </div>
       <va-navbar-item v-bind:key="item.name" v-for="item in leftMenuBar">
         <div v-if="item.hasOwnProperty('children')">
-          <va-button-dropdown :label="item.name" size="medium" class="mr-2 mb-2">
+          <va-button-dropdown :label="item.name">
             <multi-menu-link-item
               v-bind:key="child.name"
               v-for="child in item.children"
@@ -21,10 +21,10 @@
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="useRouter(item.link)" size="medium" class="mr-2 mb-2" :to="item.link">
+          <va-button v-if="useRouter(item.link)" :to="item.link">
             {{ item.name }}
           </va-button>
-          <va-button v-if="!useRouter(item.link)" size="medium" class="mr-2 mb-2" :href="item.link">
+          <va-button v-if="!useRouter(item.link)" :href="item.link">
             {{ item.name }}
           </va-button>
         </div>
@@ -33,7 +33,7 @@
     <template #right>
       <va-navbar-item v-bind:key="item.name" v-for="item in rightMenuBar">
         <div v-if="item.hasOwnProperty('children')">
-          <va-button-dropdown :label="item.name" size="medium" class="mr-2 mb-2">
+          <va-button-dropdown :label="item.name">
             <multi-menu-link-item
               v-bind:key="child.name"
               v-for="child in item.children"
@@ -44,10 +44,10 @@
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="useRouter(item.link)" size="medium" class="mr-2 mb-2" :to="item.link"
+          <va-button v-if="useRouter(item.link)" :to="item.link"
             >{{ item.name }}
           </va-button>
-          <va-button v-if="!useRouter(item.link)" size="medium" class="mr-2 mb-2" :href="item.link"
+          <va-button v-if="!useRouter(item.link)" :href="item.link"
             >{{ item.name }}
           </va-button>
         </div>

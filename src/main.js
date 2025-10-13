@@ -4,6 +4,7 @@ import VueClickAway from "vue3-click-away";
 import { createVuestic } from "vuestic-ui";
 import "vuestic-ui/css";
 import { createRouter, createWebHistory } from "vue-router";
+import './style.css'
 
 const router = createRouter({
   history: createWebHistory(),

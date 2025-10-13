@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   build: {
@@ -19,7 +20,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), cssInjectedByJsPlugin()],
+  plugins: [tailwindcss(), vue(), cssInjectedByJsPlugin()],
   test: {
     setupFiles: resolve("test/setup.js"),
   },
