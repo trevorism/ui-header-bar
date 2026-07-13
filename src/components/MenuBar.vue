@@ -107,13 +107,13 @@ const apps = {
   children: [
     { name: "Home", link: link("/") },
     { name: "Service Registry", link: "https://active.project.trevorism.com" },
-    { name: "Health Dashboard", link: "https://health-dash.testing.trevorism.com/" },
+    { name: "Health Dashboard", link: "https://health-dash.testing.trevorism.com" },
     { name: "Changelog", link: "https://changelog.project.trevorism.com" },
     { name: "Timeline Generator", link: "https://timeline.draw.trevorism.com" },
     { name: "Ask a question", link: "https://prompt.action.trevorism.com" },
     { name: "Crypto Charts", link: "https://candlebot.trade.trevorism.com" },
-    { name: "Crypto Payments", link: "https://billing.trade.trevorism.com/" },
-    { name: "Memowand", link: "https://memowand.com/" },
+    { name: "Crypto Payments", link: "https://billing.trade.trevorism.com" },
+    { name: "Memowand", link: "https://memowand.com" },
   ],
 };
 const articles = {
