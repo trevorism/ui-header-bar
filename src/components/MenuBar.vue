@@ -44,12 +44,8 @@
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="useRouter(item.link)" :to="item.link"
-            >{{ item.name }}
-          </va-button>
-          <va-button v-if="!useRouter(item.link)" :href="item.link"
-            >{{ item.name }}
-          </va-button>
+          <va-button v-if="useRouter(item.link)" :to="item.link">{{ item.name }} </va-button>
+          <va-button v-if="!useRouter(item.link)" :href="item.link">{{ item.name }} </va-button>
         </div>
       </va-navbar-item>
     </template>
@@ -110,10 +106,14 @@ const apps = {
   name: "Apps",
   children: [
     { name: "Home", link: link("/") },
-    { name: "Timeline Generator", link: "https://timeline.draw.trevorism.com" },
     { name: "Service Registry", link: "https://active.project.trevorism.com" },
+    { name: "Health Dashboard", link: "https://health-dash.testing.trevorism.com/" },
+    { name: "Changelog", link: "https://changelog.project.trevorism.com" },
+    { name: "Timeline Generator", link: "https://timeline.draw.trevorism.com" },
     { name: "Ask a question", link: "https://prompt.action.trevorism.com" },
-    { name: "Candlebot", link: "https://candlebot.trade.trevorism.com" },
+    { name: "Crypto Charts", link: "https://candlebot.trade.trevorism.com" },
+    { name: "Crypto Payments", link: "https://billing.trade.trevorism.com/" },
+    { name: "Memowand", link: "https://memowand.com/" },
   ],
 };
 const articles = {
@@ -147,8 +147,7 @@ const tools = {
     },
     { name: "NPM", link: "https://www.npmjs.com/search?q=%40trevorism" },
     { name: "Google Cloud", link: "https://console.cloud.google.com" },
-    { name: "Google Apps", link: "https://admin.google.com/u/1/?pli=1" },
-    { name: "Mixpanel", link: "https://mixpanel.com/project/3181469/view/3693037/app/boards#id=6263136" },
+    { name: "Google Apps", link: "https://admin.google.com/u/1/?pli=1" }
   ],
 };
 
