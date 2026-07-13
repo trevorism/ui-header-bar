@@ -47,5 +47,8 @@
     "vue": "^3.5.18"
   },
   "license": "MIT",
-  "repository": "trevorism/ui-header-bar"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trevorism/ui-header-bar.git"
+  }
 }
