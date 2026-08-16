@@ -153,7 +153,7 @@ const tools = {
 
 const currentUrl = window.location.href;
 
-const admin = { name: "Admin", link: link("/admin") };
+const admin = { name: "Admin", link: "https://admin.auth.trevorism.com" };
 const register = { name: "Register", link: link("/register") };
 const login = { name: "Login", link: "https://login.auth.trevorism.com?return_url=" + currentUrl };
 const logout = { name: "Logout", link: link("/logout") };

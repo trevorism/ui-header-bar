@@ -43,8 +43,6 @@ app.mount('#app')
 
 ```
 
-
-
 ### Development server
 ```
 npm run dev

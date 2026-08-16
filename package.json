@@ -1,6 +1,6 @@
 {
   "name": "@trevorism/ui-header-bar",
-  "version": "5.2.1",
+  "version": "5.3.0",
   "description": "The header bar component for Trevorism.com",
   "type": "module",
   "scripts": {
@@ -19,26 +19,26 @@
     "dist"
   ],
   "dependencies": {
-    "@tailwindcss/vite": "^4.3.2",
-    "tailwindcss": "^4.3.2",
-    "vite-plugin-css-injected-by-js": "^5.0.1",
-    "vue": "^3.5.39",
-    "vue-router": "^5.1.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "vite-plugin-css-injected-by-js": "^5.0.2",
+    "vue": "^3.5.18",
+    "vue-router": "^5.2.0",
     "vue3-click-away": "^1.2.4",
     "vuestic-ui": "^1.10.3"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.16.1",
-    "@types/node": "^26.1.1",
-    "@vitejs/plugin-vue": "^6.0.7",
+    "@types/node": "^26.2.0",
+    "@vitejs/plugin-vue": "^6.0.8",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.11",
-    "eslint": "^10.7.0",
-    "eslint-plugin-vue": "^10.9.2",
-    "jsdom": "^29.1.1",
-    "prettier": "^3.9.5",
+    "eslint": "^10.8.1",
+    "eslint-plugin-vue": "^10.10.0",
+    "jsdom": "^30.0.1",
+    "prettier": "^3.9.6",
     "resize-observer-polyfill": "^1.5.1",
-    "vite": "^8.1.4",
+    "vite": "^8.2.1",
     "vitest": "^4.1.10",
     "vue-cli-plugin-vuestic-ui": "~1.0.11",
     "vue3-cookies": "^1.0.6"
@@ -50,5 +50,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/trevorism/ui-header-bar.git"
+  },
+  "allowScripts": {
+    "vue-demi@0.14.6": true
   }
 }

@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, "src/components/index.js"),
+      entry: resolve(import.meta.dirname, "src/components/index.js"),
       name: "ui-header-bar",
       fileName: (format) => `ui-header-bar.${format}.js`,
     },
@@ -22,6 +22,6 @@ export default defineConfig({
   },
   plugins: [tailwindcss(), vue(), cssInjectedByJsPlugin()],
   test: {
-    setupFiles: resolve("test/setup.js"),
+    setupFiles: resolve(import.meta.dirname, "test/setup.js"),
   },
 });
