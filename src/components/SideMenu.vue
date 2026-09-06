@@ -7,7 +7,7 @@ defineProps({
 });
 
 const useRouter = (link) => {
-  return link.startsWith("/");
+  return typeof link === "string" && link.startsWith("/");
 };
 </script>
 
@@ -18,12 +18,17 @@ const useRouter = (link) => {
 
       <div v-if="item.hasOwnProperty('children')">
         <div v-for="child in item.children" :key="child.name">
-          <va-sidebar-item :href="child.link" v-if="!useRouter(child.link)">
+          <va-sidebar-item v-if="child.action" @click="child.action()">
             <va-sidebar-item-content>
               {{ child.name }}
             </va-sidebar-item-content>
           </va-sidebar-item>
-          <va-sidebar-item :to="child.link" v-if="useRouter(child.link)">
+          <va-sidebar-item :href="child.link" v-else-if="!useRouter(child.link)">
+            <va-sidebar-item-content>
+              {{ child.name }}
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+          <va-sidebar-item :to="child.link" v-else>
             <va-sidebar-item-content>
               {{ child.name }}
             </va-sidebar-item-content>
@@ -31,12 +36,17 @@ const useRouter = (link) => {
         </div>
       </div>
       <div v-if="!item.hasOwnProperty('children')">
-        <va-sidebar-item :href="item.link" v-if="!useRouter(item.link)">
+        <va-sidebar-item v-if="item.action" @click="item.action()">
           <va-sidebar-item-content>
             {{ item.name }}
           </va-sidebar-item-content>
         </va-sidebar-item>
-        <va-sidebar-item :to="item.link" v-if="useRouter(item.link)">
+        <va-sidebar-item :href="item.link" v-else-if="!useRouter(item.link)">
+          <va-sidebar-item-content>
+            {{ item.name }}
+          </va-sidebar-item-content>
+        </va-sidebar-item>
+        <va-sidebar-item :to="item.link" v-else>
           <va-sidebar-item-content>
             {{ item.name }}
           </va-sidebar-item-content>
