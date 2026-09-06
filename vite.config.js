@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   build: {
@@ -10,17 +10,10 @@ export default defineConfig({
     lib: {
       entry: resolve(import.meta.dirname, "src/components/index.js"),
       name: "ui-header-bar",
-      fileName: (format) =>
-        format === "umd" ? "ui-header-bar.umd.cjs" : "ui-header-bar.es.js",
+      fileName: (format) => (format === "umd" ? "ui-header-bar.umd.cjs" : "ui-header-bar.es.js"),
     },
     rollupOptions: {
-      external: [
-        "vue",
-        "vue-router",
-        "vuestic-ui",
-        "vue3-click-away",
-        "@trevorism/ui-auth",
-      ],
+      external: ["vue", "vue-router", "vuestic-ui", "vue3-click-away", "@trevorism/ui-auth"],
       output: {
         exports: "named",
         globals: {

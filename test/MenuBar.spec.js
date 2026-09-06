@@ -46,8 +46,18 @@ vi.mock("@trevorism/ui-auth", async () => {
   };
 });
 
-const findByText = (wrapper, selector, text) =>
-  wrapper.findAll(selector).find((node) => node.text().trim() === text);
+const findByText = (wrapper, selector, text) => wrapper.findAll(selector).find((node) => node.text().trim() === text);
+
+const findDropdown = (wrapper, label) =>
+  wrapper.findAllComponents({ name: "VaButtonDropdown" }).find((node) => node.props("label") === label);
+
+const openDropdown = async (wrapper, label) => {
+  await findDropdown(wrapper, label).find("button").trigger("click");
+  await flushPromises();
+};
+
+const findDropdownLink = (text) =>
+  [...document.body.querySelectorAll("a")].find((node) => node.textContent.trim() === text);
 
 function signIn({ admin = false, username = "tester" } = {}) {
   auth.session.authenticated = true;
@@ -150,12 +160,12 @@ describe("MenuBar", () => {
     expect(wrapper.text()).not.toContain("tbrooks");
   });
 
-  it("never shows the admin link to an anonymous visitor", async () => {
+  it("never shows the admin menu to an anonymous visitor", async () => {
     auth.session.admin = true;
     const wrapper = mount(MenuBar);
     await nextTick();
 
-    expect(findByText(wrapper, "a", "Admin")).toBeUndefined();
+    expect(findDropdown(wrapper, "Admin")).toBeUndefined();
   });
 
   it("opens the mini menu and offers logout inside it", async () => {
@@ -187,42 +197,56 @@ describe("MenuBar", () => {
     expect(auth.logout).toHaveBeenCalledTimes(1);
   });
 
-  it("hides the admin link from non admin users", async () => {
+  it("hides the admin menu from non admin users", async () => {
     signIn();
     const wrapper = mount(MenuBar);
     await nextTick();
 
-    expect(findByText(wrapper, "a", "Admin")).toBeUndefined();
+    expect(findDropdown(wrapper, "Admin")).toBeUndefined();
   });
 
-  it("points the admin link at the admin console for an administrator", async () => {
+  it("offers both admin consoles to an administrator", async () => {
     signIn({ admin: true });
     const wrapper = mount(MenuBar);
     await nextTick();
 
-    expect(findByText(wrapper, "a", "Admin").attributes("href")).toBe(
-      "https://admin.auth.trevorism.com",
-    );
+    await openDropdown(wrapper, "Admin");
+
+    expect(findDropdownLink("Identities").getAttribute("href")).toBe("https://admin.auth.trevorism.com");
+    expect(findDropdownLink("Certs").getAttribute("href")).toBe("https://certs.project.trevorism.com");
+
+    wrapper.unmount();
   });
 
-  it("reveals the admin link when the session becomes an administrator", async () => {
+  it("lists both admin consoles in the mini menu", async () => {
+    signIn({ admin: true });
+    const wrapper = mount(MenuBar);
+    await nextTick();
+
+    await wrapper.find(".rightMenu .va-icon").trigger("click");
+    await nextTick();
+
+    const sidebar = wrapper.findComponent({ name: "SideMenu" });
+    expect(sidebar.text()).toContain("Identities");
+    expect(sidebar.text()).toContain("Certs");
+  });
+
+  it("reveals the admin menu when the session becomes an administrator", async () => {
     signIn();
     const wrapper = mount(MenuBar);
     await nextTick();
-    expect(findByText(wrapper, "a", "Admin")).toBeUndefined();
+    expect(findDropdown(wrapper, "Admin")).toBeUndefined();
 
     auth.session.admin = true;
     await nextTick();
 
-    expect(findByText(wrapper, "a", "Admin")).toBeDefined();
+    expect(findDropdown(wrapper, "Admin")).toBeDefined();
   });
 
   it("uses absolute trevorism links when hosted somewhere else", () => {
     const wrapper = mount(MenuBar);
 
-    expect(findByText(wrapper, "a", "Register").attributes("href")).toBe(
-      "https://trevorism.com/register",
-    );
+    expect(findByText(wrapper, "a", "Register").attributes("href")).toBe("https://trevorism.com/register");
   });
 
   it("keeps links relative when the host says it is the homepage", () => {
@@ -235,8 +259,6 @@ describe("MenuBar", () => {
   it("lets an app force absolute links", () => {
     const wrapper = mount(MenuBar, { props: { local: false } });
 
-    expect(findByText(wrapper, "a", "Register").attributes("href")).toBe(
-      "https://trevorism.com/register",
-    );
+    expect(findByText(wrapper, "a", "Register").attributes("href")).toBe("https://trevorism.com/register");
   });
 });
