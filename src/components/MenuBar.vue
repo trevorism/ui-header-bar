@@ -21,10 +21,13 @@
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="useRouter(item.link)" :to="item.link">
+          <va-button v-if="item.action" @click="item.action()">
             {{ item.name }}
           </va-button>
-          <va-button v-if="!useRouter(item.link)" :href="item.link">
+          <va-button v-else-if="useRouter(item.link)" :to="item.link">
+            {{ item.name }}
+          </va-button>
+          <va-button v-else :href="item.link">
             {{ item.name }}
           </va-button>
         </div>
@@ -44,8 +47,9 @@
           </va-button-dropdown>
         </div>
         <div v-else>
-          <va-button v-if="useRouter(item.link)" :to="item.link">{{ item.name }} </va-button>
-          <va-button v-if="!useRouter(item.link)" :href="item.link">{{ item.name }} </va-button>
+          <va-button v-if="item.action" @click="item.action()">{{ item.name }} </va-button>
+          <va-button v-else-if="useRouter(item.link)" :to="item.link">{{ item.name }} </va-button>
+          <va-button v-else :href="item.link">{{ item.name }} </va-button>
         </div>
       </va-navbar-item>
     </template>
@@ -69,37 +73,40 @@
 import MultiMenuLinkItem from "./MultiMenuLinkItem.vue";
 import SideMenu from "./SideMenu.vue";
 import { computed, onMounted, ref } from "vue";
-import { useCookies } from "vue3-cookies";
+import { ensureBootstrapped, useAuth } from "@trevorism/ui-auth";
+
+const HOMEPAGE_HOSTS = ["trevorism.com", "www.trevorism.com"];
+const READY_TIMEOUT_MILLIS = 1500;
 
 const props = defineProps({
   local: {
     type: Boolean,
     required: false,
-    default: false,
+    default: null,
   },
 });
 
-const { cookies } = useCookies();
-const username = ref("null");
-const isAdmin = ref(false);
-const authenticated = ref(false);
+const { user, isAuthenticated, isAdmin, ready, login, logout } = useAuth();
+
 const blackColor = { color: "#000000" };
+const authenticated = isAuthenticated;
+const username = computed(() => user.value?.username ?? "");
 
 onMounted(() => {
-  username.value = cookies.get("user_name");
-  isAdmin.value = cookies.get("admin") === "true";
-  authenticated.value = !!username.value;
+  ensureBootstrapped();
 });
 
-const link = (link) => {
-  if (props.local) {
-    return link;
-  }
-  return "https://trevorism.com" + link;
+const onHomepage =
+  typeof window !== "undefined" && HOMEPAGE_HOSTS.includes(window.location.hostname);
+
+const relativeLinks = computed(() => (props.local === null ? onHomepage : props.local));
+
+const link = (path) => {
+  return relativeLinks.value ? path : "https://trevorism.com" + path;
 };
 
 const useRouter = (link) => {
-  return link.startsWith("/");
+  return typeof link === "string" && link.startsWith("/");
 };
 
 const apps = {
@@ -151,12 +158,16 @@ const tools = {
   ],
 };
 
-const currentUrl = window.location.href;
-
 const admin = { name: "Admin", link: "https://admin.auth.trevorism.com" };
 const register = { name: "Register", link: link("/register") };
-const login = { name: "Login", link: "https://login.auth.trevorism.com?return_url=" + currentUrl };
-const logout = { name: "Logout", link: link("/logout") };
+const startLogin = async () => {
+  await Promise.race([ready, new Promise((resolve) => setTimeout(resolve, READY_TIMEOUT_MILLIS))]);
+  if (!isAuthenticated.value) {
+    login();
+  }
+};
+
+const signOut = { name: "Logout", action: () => logout() };
 const account = computed(() => {
   return { name: username.value, link: link("/account") };
 });
@@ -175,9 +186,9 @@ const leftMenuBar = computed(() => {
 });
 
 let rightMenuBar = computed(() => {
-  let arr = [register, login];
+  let arr = [register, { name: "Login", action: startLogin }];
   if (authenticated.value) {
-    arr = [account.value, logout];
+    arr = [account.value, signOut];
   }
   return arr;
 });

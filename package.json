@@ -1,50 +1,58 @@
 {
   "name": "@trevorism/ui-header-bar",
-  "version": "5.3.0",
+  "version": "6.0.0",
   "description": "The header bar component for Trevorism.com",
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "lint": "eslint .",
     "accept": "vitest run --environment jsdom",
     "dev": "vite",
     "preview": "vite preview --port 4173",
-    "format": "prettier --write ./*.js",
+    "format": "prettier --write \"{src,test}/**/*.{js,vue}\" ./*.js",
     "test": "vitest --environment jsdom",
-    "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json"
+    "webstorm-integration": "vitest --watch --reporter=dot --reporter=json --outputFile=.vitest-result.json",
+    "prepublishOnly": "npm run build && npm run accept"
   },
-  "main": "./dist/ui-header-bar.umd.js",
+  "main": "./dist/ui-header-bar.umd.cjs",
   "module": "./dist/ui-header-bar.es.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "tailwindcss": "^4.3.3",
-    "vite-plugin-css-injected-by-js": "^5.0.2",
-    "vue": "^3.5.18",
-    "vue-router": "^5.2.0",
-    "vue3-click-away": "^1.2.4",
-    "vuestic-ui": "^1.10.3"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@rushstack/eslint-patch": "^1.16.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@trevorism/ui-auth": "^1.0.0",
     "@types/node": "^26.2.0",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.11",
     "eslint": "^10.8.1",
     "eslint-plugin-vue": "^10.10.0",
+    "globals": "^17.12.0",
     "jsdom": "^30.0.1",
     "prettier": "^3.9.6",
     "resize-observer-polyfill": "^1.5.1",
+    "tailwindcss": "^4.3.3",
     "vite": "^8.2.1",
+    "vite-plugin-css-injected-by-js": "^5.0.2",
     "vitest": "^4.1.10",
+    "vue": "^3.5.18",
     "vue-cli-plugin-vuestic-ui": "~1.0.11",
-    "vue3-cookies": "^1.0.6"
+    "vue-router": "^5.2.0",
+    "vue3-click-away": "^1.2.4",
+    "vuestic-ui": "^1.10.3"
   },
   "peerDependencies": {
-    "vue": "^3.5.18"
+    "@trevorism/ui-auth": "^1.0.0",
+    "vue": "^3.5.0",
+    "vue-router": ">=4",
+    "vue3-click-away": "^1.2.0",
+    "vuestic-ui": "^1.10.0"
   },
   "license": "MIT",
   "repository": {
@@ -53,5 +61,21 @@
   },
   "allowScripts": {
     "vue-demi@0.14.6": true
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/ui-header-bar.es.js",
+      "require": "./dist/ui-header-bar.umd.cjs",
+      "default": "./dist/ui-header-bar.es.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "vue-router": {
+      "optional": true
+    }
   }
 }
