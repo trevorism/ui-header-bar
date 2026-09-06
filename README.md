@@ -15,7 +15,12 @@ app must serve the `/api/auth/*` routes, which it gets from the `com.trevorism:m
 backend dependency. An app that has not been migrated should stay on 5.x.
 
 The bar calls `ensureBootstrapped()` itself, so it renders the right state even if the app forgets
-`app.use(TrevorismAuth)`. Without the plugin there is no axios auto-refresh, so install it.
+`app.use(TrevorismAuth)`. Install the plugin anyway: without it you lose the 401 replay interceptor,
+the router guard, and the visibility handling that re-arms the refresh timer in a background tab.
+
+On an app that has **not** been migrated the failure is quiet rather than loud. The session call
+fails, so a signed in user is rendered as anonymous, and the Login button leads to a route the app
+does not serve. Stay on 5.x until the backend is migrated.
 
 `@trevorism/ui-auth` is a peer dependency on purpose. It keeps the session in a single module-level
 store, and two copies on disk would leave the bar reading a store the app never populated.
@@ -32,9 +37,11 @@ import { MenuBar } from "@trevorism/ui-header-bar";
 </template>
 ```
 
-`MenuBar` and `SideMenu` are named exports; `MenuBar` is also the default export. The `local` prop
-is gone. Links are relative when the bar is running on trevorism.com and absolute everywhere else,
-which is what the prop was doing by hand.
+`MenuBar` and `SideMenu` are named exports; `MenuBar` is also the default export.
+
+Links are relative when the bar is running on trevorism.com and absolute everywhere else, so most
+apps pass nothing. The `local` prop still overrides that, which the homepage needs in local
+development and in per-PR environments, where the hostname cannot tell you which app you are.
 
 Assumes Vuestic, VueClickAway, VueRouter and the Trevorism auth plugin are installed.
 

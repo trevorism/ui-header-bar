@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { mount } from "@vue/test-utils";
+import { mount, flushPromises } from "@vue/test-utils";
 import { nextTick } from "vue";
 import MenuBar from "../src/components/MenuBar.vue";
 
@@ -12,15 +12,34 @@ const auth = vi.hoisted(() => ({
 
 vi.mock("@trevorism/ui-auth", async () => {
   const { reactive, computed } = await import("vue");
-  auth.session = reactive({ authenticated: false, admin: false, username: "" });
+  auth.session = reactive({
+    authenticated: false,
+    admin: false,
+    loading: false,
+    username: null,
+    role: null,
+    permissions: null,
+    tenant: null,
+  });
   return {
     ensureBootstrapped: auth.ensureBootstrapped,
     useAuth: () => ({
       user: computed(() =>
-        auth.session.authenticated ? { username: auth.session.username } : null,
+        auth.session.authenticated
+          ? {
+              username: auth.session.username,
+              role: auth.session.role,
+              permissions: auth.session.permissions,
+              tenant: auth.session.tenant,
+              admin: auth.session.admin,
+            }
+          : null,
       ),
       isAuthenticated: computed(() => auth.session.authenticated),
-      isAdmin: computed(() => auth.session.admin),
+      isAdmin: computed(() => auth.session.authenticated && auth.session.admin),
+      loading: computed(() => auth.session.loading),
+      ready: Promise.resolve(),
+      refresh: vi.fn(),
       login: auth.login,
       logout: auth.logout,
     }),
@@ -39,7 +58,7 @@ function signIn({ admin = false, username = "tester" } = {}) {
 function signOut() {
   auth.session.authenticated = false;
   auth.session.admin = false;
-  auth.session.username = "";
+  auth.session.username = null;
 }
 
 describe("MenuBar", () => {
@@ -70,8 +89,21 @@ describe("MenuBar", () => {
     const wrapper = mount(MenuBar);
 
     await findByText(wrapper, "button", "Login").trigger("click");
+    await flushPromises();
 
     expect(auth.login).toHaveBeenCalledTimes(1);
+    expect(auth.login).toHaveBeenCalledWith();
+  });
+
+  it("does not send an already signed in user to login if they click during the session check", async () => {
+    const wrapper = mount(MenuBar);
+
+    const clicked = findByText(wrapper, "button", "Login").trigger("click");
+    signIn();
+    await clicked;
+    await flushPromises();
+
+    expect(auth.login).not.toHaveBeenCalled();
   });
 
   it("shows the signed in user and offers logout", async () => {
@@ -92,6 +124,7 @@ describe("MenuBar", () => {
     await findByText(wrapper, "button", "Logout").trigger("click");
 
     expect(auth.logout).toHaveBeenCalledTimes(1);
+    expect(auth.logout).toHaveBeenCalledWith();
   });
 
   it("flips from signed out to signed in without a remount", async () => {
@@ -115,6 +148,43 @@ describe("MenuBar", () => {
 
     expect(findByText(wrapper, "button", "Login")).toBeDefined();
     expect(wrapper.text()).not.toContain("tbrooks");
+  });
+
+  it("never shows the admin link to an anonymous visitor", async () => {
+    auth.session.admin = true;
+    const wrapper = mount(MenuBar);
+    await nextTick();
+
+    expect(findByText(wrapper, "a", "Admin")).toBeUndefined();
+  });
+
+  it("opens the mini menu and offers logout inside it", async () => {
+    signIn({ username: "tbrooks" });
+    const wrapper = mount(MenuBar);
+    await nextTick();
+
+    await wrapper.find(".rightMenu .va-icon").trigger("click");
+    await nextTick();
+
+    const sidebar = wrapper.findComponent({ name: "SideMenu" });
+    expect(sidebar.exists()).toBe(true);
+    expect(sidebar.text()).toContain("Logout");
+  });
+
+  it("logs out from the mini menu", async () => {
+    signIn();
+    const wrapper = mount(MenuBar);
+    await nextTick();
+    await wrapper.find(".rightMenu .va-icon").trigger("click");
+    await nextTick();
+
+    const item = wrapper
+      .findComponent({ name: "SideMenu" })
+      .findAll(".va-sidebar__item")
+      .find((node) => node.text().trim() === "Logout");
+    await item.trigger("click");
+
+    expect(auth.logout).toHaveBeenCalledTimes(1);
   });
 
   it("hides the admin link from non admin users", async () => {
@@ -149,6 +219,21 @@ describe("MenuBar", () => {
 
   it("uses absolute trevorism links when hosted somewhere else", () => {
     const wrapper = mount(MenuBar);
+
+    expect(findByText(wrapper, "a", "Register").attributes("href")).toBe(
+      "https://trevorism.com/register",
+    );
+  });
+
+  it("keeps links relative when the host says it is the homepage", () => {
+    const wrapper = mount(MenuBar, { props: { local: true } });
+
+    expect(findByText(wrapper, "a", "Register").attributes("href")).toBe("/register");
+    expect(findByText(wrapper, "a", "Contact").attributes("href")).toBe("/contact");
+  });
+
+  it("lets an app force absolute links", () => {
+    const wrapper = mount(MenuBar, { props: { local: false } });
 
     expect(findByText(wrapper, "a", "Register").attributes("href")).toBe(
       "https://trevorism.com/register",

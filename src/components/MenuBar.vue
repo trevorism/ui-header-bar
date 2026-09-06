@@ -76,8 +76,17 @@ import { computed, onMounted, ref } from "vue";
 import { ensureBootstrapped, useAuth } from "@trevorism/ui-auth";
 
 const HOMEPAGE_HOSTS = ["trevorism.com", "www.trevorism.com"];
+const READY_TIMEOUT_MILLIS = 1500;
 
-const { user, isAuthenticated, isAdmin, login, logout } = useAuth();
+const props = defineProps({
+  local: {
+    type: Boolean,
+    required: false,
+    default: null,
+  },
+});
+
+const { user, isAuthenticated, isAdmin, ready, login, logout } = useAuth();
 
 const blackColor = { color: "#000000" };
 const authenticated = isAuthenticated;
@@ -90,8 +99,10 @@ onMounted(() => {
 const onHomepage =
   typeof window !== "undefined" && HOMEPAGE_HOSTS.includes(window.location.hostname);
 
+const relativeLinks = computed(() => (props.local === null ? onHomepage : props.local));
+
 const link = (path) => {
-  return onHomepage ? path : "https://trevorism.com" + path;
+  return relativeLinks.value ? path : "https://trevorism.com" + path;
 };
 
 const useRouter = (link) => {
@@ -149,7 +160,13 @@ const tools = {
 
 const admin = { name: "Admin", link: "https://admin.auth.trevorism.com" };
 const register = { name: "Register", link: link("/register") };
-const signIn = { name: "Login", action: () => login() };
+const startLogin = async () => {
+  await Promise.race([ready, new Promise((resolve) => setTimeout(resolve, READY_TIMEOUT_MILLIS))]);
+  if (!isAuthenticated.value) {
+    login();
+  }
+};
+
 const signOut = { name: "Logout", action: () => logout() };
 const account = computed(() => {
   return { name: username.value, link: link("/account") };
@@ -169,7 +186,7 @@ const leftMenuBar = computed(() => {
 });
 
 let rightMenuBar = computed(() => {
-  let arr = [register, signIn];
+  let arr = [register, { name: "Login", action: startLogin }];
   if (authenticated.value) {
     arr = [account.value, signOut];
   }

@@ -18,7 +18,8 @@
   "module": "./dist/ui-header-bar.es.js",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "dependencies": {},
   "devDependencies": {
@@ -64,7 +65,8 @@
   "exports": {
     ".": {
       "import": "./dist/ui-header-bar.es.js",
-      "require": "./dist/ui-header-bar.umd.cjs"
+      "require": "./dist/ui-header-bar.umd.cjs",
+      "default": "./dist/ui-header-bar.es.js"
     },
     "./package.json": "./package.json"
   },

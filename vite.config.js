@@ -22,6 +22,7 @@ export default defineConfig({
         "@trevorism/ui-auth",
       ],
       output: {
+        exports: "named",
         globals: {
           vue: "Vue",
           "vue-router": "VueRouter",
