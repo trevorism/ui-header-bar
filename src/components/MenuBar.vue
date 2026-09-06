@@ -96,8 +96,7 @@ onMounted(() => {
   ensureBootstrapped();
 });
 
-const onHomepage =
-  typeof window !== "undefined" && HOMEPAGE_HOSTS.includes(window.location.hostname);
+const onHomepage = typeof window !== "undefined" && HOMEPAGE_HOSTS.includes(window.location.hostname);
 
 const relativeLinks = computed(() => (props.local === null ? onHomepage : props.local));
 
@@ -154,11 +153,17 @@ const tools = {
     },
     { name: "NPM", link: "https://www.npmjs.com/search?q=%40trevorism" },
     { name: "Google Cloud", link: "https://console.cloud.google.com" },
-    { name: "Google Apps", link: "https://admin.google.com/u/1/?pli=1" }
+    { name: "Google Apps", link: "https://admin.google.com/u/1/?pli=1" },
   ],
 };
 
-const admin = { name: "Admin", link: "https://admin.auth.trevorism.com" };
+const admin = {
+  name: "Admin",
+  children: [
+    { name: "Identities", link: "https://admin.auth.trevorism.com" },
+    { name: "Certs", link: "https://certs.project.trevorism.com" },
+  ],
+};
 const register = { name: "Register", link: link("/register") };
 const startLogin = async () => {
   await Promise.race([ready, new Promise((resolve) => setTimeout(resolve, READY_TIMEOUT_MILLIS))]);

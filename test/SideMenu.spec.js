@@ -29,7 +29,6 @@ describe("MenuBar", () => {
     expect(wrapper.find("a").attributes("href")).toBe("/");
   });
 
-
   it("fires a top level action item instead of navigating", async () => {
     const action = vi.fn();
     const wrapper = mount(SideMenu, { props: { data: [{ name: "Logout", action }] } });
@@ -55,7 +54,13 @@ describe("MenuBar", () => {
     const wrapper = mount(SideMenu, {
       props: {
         data: [
-          { name: "Account", children: [{ name: "Register", link: "https://trevorism.com/register" }, { name: "Logout", action: vi.fn() }] },
+          {
+            name: "Account",
+            children: [
+              { name: "Register", link: "https://trevorism.com/register" },
+              { name: "Logout", action: vi.fn() },
+            ],
+          },
         ],
       },
     });
