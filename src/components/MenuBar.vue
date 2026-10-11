@@ -117,6 +117,7 @@ const apps = {
     { name: "Changelog", link: "https://changelog.project.trevorism.com" },
     { name: "Timeline Generator", link: "https://timeline.draw.trevorism.com" },
     { name: "Ask a question", link: "https://prompt.action.trevorism.com" },
+    { name: "Goals", link: "https://goals.action.trevorism.com" },
     { name: "Crypto Charts", link: "https://candlebot.trade.trevorism.com" },
     { name: "Crypto Payments", link: "https://billing.trade.trevorism.com" },
     { name: "Memowand", link: "https://memowand.com" },
