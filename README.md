@@ -45,6 +45,16 @@ development and in per-PR environments, where the hostname cannot tell you which
 
 Assumes Vuestic, VueClickAway, VueRouter and the Trevorism auth plugin are installed.
 
+The bar injects its styles from JavaScript, so it needs no CSS import. An app that prerenders or
+server-renders its pages should also import the stylesheet, so the bar is laid out before JavaScript
+runs; otherwise the mobile menu shows under the desktop bar until the script loads. Import it after the
+app's own styles, matching the order the injected styles take once the script runs.
+
+```javascript
+import './style.css'
+import '@trevorism/ui-header-bar/style.css'
+```
+
 main.js
 ```javascript
 import { createApp } from 'vue'

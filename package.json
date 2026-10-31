@@ -1,6 +1,6 @@
 {
   "name": "@trevorism/ui-header-bar",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "description": "The header bar component for Trevorism.com",
   "type": "module",
   "scripts": {
@@ -68,6 +68,7 @@
       "require": "./dist/ui-header-bar.umd.cjs",
       "default": "./dist/ui-header-bar.es.js"
     },
+    "./style.css": "./dist/style.css",
     "./package.json": "./package.json"
   },
   "publishConfig": {
